@@ -8,6 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author Gimenez Carlos Martin
+ */
+
 @Entity
 @Table(name = "task")
 public class Task implements Serializable {

@@ -6,7 +6,7 @@ package com.academia.actividadm4;
 
 /**
  *
- * @author usuario
+ * @author Gimenez Carlos Martin
  */
 public class ActividadM4 {
 

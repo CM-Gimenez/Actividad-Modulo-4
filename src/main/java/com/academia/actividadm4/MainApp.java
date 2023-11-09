@@ -1,16 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.academia.actividadm4;
 import com.academia.actividadm4.Entidades.Task;
 import com.academia.actividadm4.Dao.TaskDAOJPAImplements;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
- * @author usuario
+ * @author Gimenez Carlos Martin
  */
 public class MainApp extends javax.swing.JFrame {
 
@@ -128,6 +125,11 @@ public class MainApp extends javax.swing.JFrame {
                 "ID", "Nombre", "Title 3"
             }
         ));
+        taskTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                taskTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(taskTable);
 
         javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
@@ -264,6 +266,12 @@ public class MainApp extends javax.swing.JFrame {
        updateTask();
     }//GEN-LAST:event_updateButtonActionPerformed
 
+    private void taskTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskTableMouseClicked
+        seleccionarEnTabla();
+    }//GEN-LAST:event_taskTableMouseClicked
+
+    //metodo que utiliza el boton Agregar para guardar una tarea en la base de datos a traves del metodo 
+    //addTask de la clase taskDAO.
     private void addTask() {
         String name = nameField.getText();
         String description = descriptionField.getText();
@@ -274,8 +282,11 @@ public class MainApp extends javax.swing.JFrame {
 
         taskDAO.addTask(task);
         loadTasks();
+        setTextFields();
     }
 
+    //metodo  utilizado por el boton actualizar, que actualiza el nombre y descripcion una tarea 
+    //utilizando el metodo updateTask de la clase taskDAO
     private void updateTask() {
         int id = Integer.parseInt(idField.getText());
         String name = nameField.getText();
@@ -288,18 +299,51 @@ public class MainApp extends javax.swing.JFrame {
 
         taskDAO.updateTask(task);
         loadTasks();
+        setTextFields();
     }
 
+    //metodo que utiliza el boton eliminar y que elimina una tarea tomando su id, 
+    //aplicando el metodo deleteTask de la clase taskDAO 
     private void deleteTask() {
         int id = Integer.parseInt(idField.getText());
         taskDAO.deleteTask(id);
         loadTasks();
+        setTextFields();
     }
     
+    //metodo  utilizado por el boton Listar que muestra en la tabla todas 
+    //las tareas que trae el metodo getAllTask de la clase taskDAO
     private void loadTasks() {
         List<Task> tasks = taskDAO.getAllTasks();
-        DefaultTableModel model = new DefaultTableModel();
+        TaskTableModel model = new TaskTableModel(tasks);
+        
         taskTable.setModel(model);
+    }
+    //metodo para limpiar los textos de los textfields
+    private void setTextFields (){
+        idField.setText("");
+        nameField.setText("");
+        descriptionField.setText("");
+    }
+    
+     // Método para manejar la selección de la tabla
+    private void seleccionarEnTabla() {
+        int selectedRow = taskTable.getSelectedRow();
+
+        if (selectedRow >= 0) {
+            // Obtiene el modelo de la tabla
+            TableModel model = taskTable.getModel();
+
+            // Obtiene los datos de la fila seleccionada
+            int id = (int) model.getValueAt(selectedRow, 0);
+            String name = (String) model.getValueAt(selectedRow, 1);
+            String description = (String) model.getValueAt(selectedRow, 2);
+
+            // Muestra los datos en los JTextField
+            idField.setText(String.valueOf(id));
+            nameField.setText(name);
+            descriptionField.setText(description);
+        }
     }
     
   
