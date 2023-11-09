@@ -12,5 +12,9 @@ public class ActividadM4 {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        
+        MainApp mainApp = new MainApp();
+        mainApp.setVisible(true);
+        mainApp.setLocationRelativeTo(null);
     }
 }
