@@ -22,7 +22,8 @@ public class Task implements Serializable {
     private int id;
     private String title;
     private String description;
-
+    
+    //Constructores de a clase Task
     public Task() {
     }
 
@@ -32,6 +33,7 @@ public class Task implements Serializable {
         this.description = description;
     }
 
+    //Getters y Setters de la clase Task
     public int getId() {
         return id;
     }

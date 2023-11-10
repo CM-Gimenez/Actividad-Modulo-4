@@ -61,6 +61,7 @@ public class MainApp extends javax.swing.JFrame {
 
         jLabel2.setText("ID");
 
+        idField.setEnabled(false);
         idField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idFieldActionPerformed(evt);
